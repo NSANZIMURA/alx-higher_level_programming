@@ -1,16 +1,22 @@
 #!/usr/bin/python3
-"""Python script that takes in a URL, sends a request to the URL and
-displays the value of the X-Request-Id variable found
-in the header of the response.
 """
-import sys
+Script that fetches https://intranet.hbtn.io/status
+"""
 import urllib.request
 
 
-if __name__ == "__main__":
-    url = sys.argv[1]
+def main():
+    """
+    Funtion to print a response of a specific url
+    """
+    url = 'https://intranet.hbtn.io/status'
+    with urllib.request.urlopen(url) as response:
+        html = response.read()
+        print('Body response:')
+        print('\t- type: {}'.format(type(html)))
+        print('\t- content: {}'.format(html))
+        print('\t- utf8 content: {}'.format(html.decode('utf8')))
 
-    request = urllib.request.Request(url)
-    with urllib.request.urlopen(request) as response:
-        print(dict(response.headers).get("X-Request-Id"))
+if __name__ == "__main__":
+    main()
 
